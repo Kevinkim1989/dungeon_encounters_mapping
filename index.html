@@ -1,0 +1,70 @@
+<style>
+    table{
+        border: 1px solid red;
+        position: absolute;
+        left: 0px;
+        top: 0px; 
+    }
+    td{
+        border: 1px solid black;
+        height: 25px;
+        width: 25px;
+    }
+</style>
+
+
+<div id="main_frame"></div>
+
+<script>
+
+    let main_frame = document.getElementById('main_frame');
+
+    window.addEventListener( 'click', () => {
+        console.log( event.srcElement );
+    });
+
+    // purpose : To initialize frame to DOM
+    function init_frame( levels ){
+        for (let i = 0; i < levels; i++) {
+            const level = i + 1;
+            let new_frame = document.createElement( 'table' );
+            new_frame.setAttribute( 'id', String( level ) );
+            init_level( new_frame, level, 10, 10 );
+            main_frame.appendChild( new_frame );
+        }
+    };
+
+    
+    // purpose : To add level to frame.
+    function init_level( new_frame, level, rows, columns ){
+        for (let i = 0; i < rows; i++) {
+            const row = i + 1;
+            let new_row = document.createElement( 'tr' );
+            // new_row.setAttribute( 'id', 'row_' + String( row ) );
+
+            for (let j = 0; j < columns; j++) {
+                const column = j + 1;
+                const full_coord = String( level ) + '-' + String( column ) + '-' + String( row );
+                let new_cell = document.createElement( 'td' );
+                // new_cell.setAttribute( 'id', 'column_' + String( cell ) );
+                new_cell.setAttribute( 'data-coord', full_coord );
+                new_cell.setAttribute( 'id', full_coord );
+                new_cell.setAttribute( 'level-coord', String( level ) );
+                new_cell.setAttribute( 'x-coord', String( column ) );
+                new_cell.setAttribute( 'y-coord', String( row ) );
+                new_row.appendChild( new_cell );
+            };
+
+            new_frame.appendChild( new_row );
+        };
+    };
+
+    init_frame( 10 );
+
+
+</script>
+
+
+
+
+
